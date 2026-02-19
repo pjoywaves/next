@@ -3,12 +3,19 @@ import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import { AppModule } from './app.module';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import * as express from 'express';
 
 import { ClassValidatorException } from './util/class-validator-exeption';
 import { PrismaClientExceptionFilter } from './util/prisma-client-exception.filter';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+const server = express();
+
+export const createNestServer = async (expressInstance: express.Express) => {
+  const app = await NestFactory.create(
+    AppModule,
+    new ExpressAdapter(expressInstance),
+  );
   app.enableCors();
   app.use((req, res, next) => {
     req.headers['content-type'] = 'application/json';
@@ -40,6 +47,10 @@ async function bootstrap() {
   };
   SwaggerModule.setup(`api`, app, document, options);
 
-  await app.listen(12345);
-}
-bootstrap();
+  await app.init();
+  return app;
+};
+
+createNestServer(server);
+
+export default server;
