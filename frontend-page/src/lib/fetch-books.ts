@@ -1,7 +1,7 @@
 import { BookData } from "@/types";
 
 export default async function fetchBooks(q?: string): Promise<BookData[]> {
-  let url = `http://localhost:12345/book`;
+  let url = `https://next-server-steel.vercel.app/book`;
 
   if (q) {
     url += `/search?q=${q}`;
