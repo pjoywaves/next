@@ -8,14 +8,6 @@ export default async function Page({
 }) {
   const { id } = await params;
 
-  // [데이터 캐시]
-  // cache :
-  // - "force-cache"
-  // - "no-store" : 데이터 페칭의 결과를 저장하지 않는 옵션, 캐싱을 아예 하지 않도록 설정하는 옵션
-
-  // next :
-  // - {revalidate: 10}
-  // - {tags: ['a']}
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${id}`,
     { cache: "force-cache" },
