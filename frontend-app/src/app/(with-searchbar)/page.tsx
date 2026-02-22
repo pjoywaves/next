@@ -3,6 +3,13 @@ import style from "./page.module.css";
 import books from "@/mock/books.json";
 import { BookData } from "@/types";
 
+export const dynamic = "auto";
+// 특정 페이지의 유형을 강제로 Static, Dynamic 페이지로 설정
+// 1. auto: 기본값, 아무것도 강제하지 않음
+// 2. force-dynamic: 페이지를 강제로 dynamic 페이지로 설정
+// 3. force-static: 페이지를 강제로 static 페이지로 설정... 검색기능이 제대로 반영안될 수 있음.
+// 4. error: 페이지를 강제로 Static페이지로 설정(static 으로 설정하면 안되는 이유가 있다면 빌드 오류를 발생)
+
 // [데이터 캐시]
 // cache :
 // - "force-cache" : 요청의 결과를 무조건 캐싱함, 한번 호출 된 이후에는 다시는 호출되지 않음
