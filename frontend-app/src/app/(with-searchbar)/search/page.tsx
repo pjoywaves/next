@@ -1,4 +1,5 @@
 import BookItem from "@/components/book-item";
+import BookListSkeleton from "@/components/skeleton/book-list-skeleton";
 import { BookData } from "@/types";
 import { delay } from "@/util/delay";
 import { Suspense } from "react";
@@ -31,7 +32,7 @@ export default async function Page({
   const { q } = await searchParams;
   return (
     // key : key가 변경될 때 마다 suspense fallback 호출
-    <Suspense key={q || ""} fallback={<div>Lading....</div>}>
+    <Suspense key={q || ""} fallback={<BookListSkeleton count={3} />}>
       <SearchResult q={q || ""} />
     </Suspense>
   );
